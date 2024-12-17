@@ -2,8 +2,7 @@
 from aiogram import types
 
 # kode import
-from services.services import get_season_movies_and_episodes
-from handler.movies.movies_download.download_count import update_download_count_view
+from services.services import get_season_movies_and_episodes, updateDownloadCount
 from handler.users.subscription import check_subscriptions
 from utils import texts, buttons
 from loader import bot
@@ -46,7 +45,7 @@ async def handle_episodes(message: types.Message, code: str, season_id: str):
             country = movie_data.get('country')
             genre = movie_data.get('genre')
 
-            download_count = await update_download_count_view(code)
+            download_count = updateDownloadCount(code)
 
             caption_text = texts.MOVIES_SEND(
                 title=title,
@@ -75,7 +74,7 @@ async def handle_episodes(message: types.Message, code: str, season_id: str):
                 episode_genre = episode.get('genre')
                 episode_file_id = episode.get('file_id')
                 episode_number = episode.get('episode_number')
-                episode_download_count = await update_download_count_view(code)
+                episode_download_count = updateDownloadCount(code)
 
                 if episode_file_id:
                     episode_caption = texts.EPISODE(

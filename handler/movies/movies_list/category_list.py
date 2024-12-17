@@ -24,8 +24,13 @@ async def send_category_task(client, message: types.Message, state: FSMContext):
     categories = get_category_by_list()
     if categories:
         keyboard = InlineKeyboardMarkup()
-        buttons = [InlineKeyboardButton(text=category.title, callback_data=f"category_{category.title}") for category
-                   in categories]
+        buttons = [InlineKeyboardButton(
+                        text=category['title'], 
+                        callback_data=f"category_{category['title']}"
+                ) 
+                   for category in categories
+                ]
+        
         for i in range(0, len(buttons), 2):
             keyboard.row(*buttons[i:i + 2])
         await message.answer(texts.CATEGORY_SELECT, reply_markup=keyboard)

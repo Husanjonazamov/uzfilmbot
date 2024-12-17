@@ -13,7 +13,6 @@ import logging
 from asyncio import create_task
 
 
-
 async def search_movies_task(message: Message, state: FSMContext):
 
     """

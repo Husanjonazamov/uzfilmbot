@@ -3,9 +3,8 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 
 # kode import
-from handler.movies.movies_download.download_count import update_download_count_view
 from loader import dp, bot
-from services.services import get_movie_by_code, get_episodes_by_series_code
+from services.services import get_movie_by_code, get_episodes_by_series_code, updateDownloadCount
 from utils.state import MoviesSearch
 from handler.users.subscription import check_subscriptions
 from utils import texts, buttons
@@ -43,7 +42,7 @@ async def download_movie_task(callback_query: types.CallbackQuery, state: FSMCon
             country = movie_data.get('country')
             genre = movie_data.get('genre')
 
-            download_count = await update_download_count_view(code)
+            download_count = updateDownloadCount(code)
 
             caption_text = texts.MOVIES_SEND(
                 title=title,

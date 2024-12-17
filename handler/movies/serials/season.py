@@ -5,6 +5,8 @@ from aiogram import types
 from services.services import get_seasons_by_movie_code
 from utils import texts, buttons
 
+
+
 async def handle_seasons(message: types.Message, title: str, movie_file_url: str, code: str):
 
     """

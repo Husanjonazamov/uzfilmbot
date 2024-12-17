@@ -3,19 +3,15 @@ from aiogram import types
 
 # kode import
 from utils import texts, buttons
-from handler.movies.movies_download.download_count import update_download_count_view
-from services.services import get_season_movies_and_episodes
+from services.services import get_season_movies_and_episodes, updateDownloadCount
 
-# add import
 
 
 async def send_episodes(message: types.Message, code: str, season_id=None):
     """
     Kinoga tegishli bo'lgan qismlarni yoki to'g'ridan-to'g'ri kinoni yuboradigan funksiya
     """
-
     episodes_data = None
-
     if season_id:
         try:
             episodes_data = get_season_movies_and_episodes(season_id=season_id)
@@ -29,7 +25,7 @@ async def send_episodes(message: types.Message, code: str, season_id=None):
             return
 
     if not episodes_data:
-        episode_download_count = await update_download_count_view(code)
+        episode_download_count = updateDownloadCount(code)
         if episode_download_count is None:
             await message.answer(texts.MOVIE_NOT_FOUND)
             return
@@ -47,7 +43,7 @@ async def send_episodes(message: types.Message, code: str, season_id=None):
         episode_genre = episode.get('genre')
         episode_file_id = episode.get('file_id')
         episode_number = episode.get('episode_number')
-        episode_download_count = await update_download_count_view(code)
+        episode_download_count = updateDownloadCount(code)
 
         if episode_download_count is None:
             await message.answer(texts.MOVIE_NOT_FOUND)

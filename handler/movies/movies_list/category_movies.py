@@ -20,6 +20,7 @@ async def show_movies_by_category_task(callback_query: types.CallbackQuery, stat
     """
 
     category_title = callback_query.data.split('_')[1]
+    print(category_title)
     movies = get_movies_by_category(category_title)
 
     if movies:

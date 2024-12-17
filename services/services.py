@@ -23,19 +23,15 @@ def getUser(user_id):
 
 
 
-def updateDownloadCount(movie_code):
-    url = f"{BASE_URL}/movie/{movie_code}/download_count/"
+def updateDownloadCount(code):
+    url = f"{BASE_URL}/download_count/{code}/"
     try:
-        response = requests.patch(url)
-        
-        if response.status_code == 404:
-            return None 
-        response.raise_for_status()
-        return response.json() 
+        response = requests.get(url)
+        data = response.json()
+        return data
     
     except requests.exceptions.RequestException as e:
         print(f"Error during updateDownloadCount: {e}")
-        return None
 
 
 def get_movie_by_code(code: str):
@@ -72,7 +68,7 @@ def get_seasons_by_movie_code(code: str):
 
 
 def get_movie_by_list():
-    response = requests.get(f'{BASE_URL}movies_list/')
+    response = requests.get(f'{BASE_URL}/movies_list/')
     if response.status_code == 200:
         movies = response.json()
         return movies
@@ -93,9 +89,11 @@ def get_category_by_list():
 
 
 def get_movies_by_category(title):
-    url = f"{BASE_URL}/movies/{title}/"  
+    url = f"http://127.0.0.1:8000/api/v1/movies_category/Serial/"
+    print(title)  
     try:
         response = requests.get(url)
+        print(response.status_code)
         if response.status_code == 200:
             movies = response.json() 
             return movies

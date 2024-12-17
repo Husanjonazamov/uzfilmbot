@@ -4,10 +4,9 @@ from aiogram import types
 # kode import
 from loader import dp, bot
 from handler.movies.movies_download.app import app
-from services.services import get_movie_by_code, get_seasons_by_movie_code
+from services.services import get_movie_by_code, get_seasons_by_movie_code, updateDownloadCount
 from handler.users.subscription import check_subscriptions
 from utils import texts, buttons
-from handler.movies.movies_download.download_count import update_download_count_view
 from handler.movies.serials.season import handle_seasons
 from handler.movies.serials.episode import send_episodes
 
@@ -45,7 +44,7 @@ async def movies_task(client, message: types.Message):
             country = movie_data.get('country')
             genre = movie_data.get('genre')
 
-            download_count = await update_download_count_view(code)
+            download_count = updateDownloadCount(code)
 
             if download_count is None:
                 await message.reply("Movie not found in the database.")
