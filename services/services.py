@@ -89,8 +89,7 @@ def get_category_by_list():
 
 
 def get_movies_by_category(title):
-    url = f"http://127.0.0.1:8000/api/v1/movies_category/Serial/"
-    print(title)  
+    url = f"{BASE_URL}/movies_category/{title}"
     try:
         response = requests.get(url)
         print(response.status_code)
@@ -105,12 +104,14 @@ def get_movies_by_category(title):
 
 
 def get_search_movie(query):
-    url = f'{BASE_URL}/movies/search/?={query}'
+    url = f'{BASE_URL}/search/?query={query}'  
     response = requests.get(url)
     
-    data = response.json()
-    
-    return data
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        return [] 
 
 
 def get_season_movies_and_episodes(season_id: str, code: str):

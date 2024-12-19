@@ -5,11 +5,21 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeybo
 asosiy buttonlar 
 """
 
+
 def get_subscription_buttons(not_subscribed):
-    buttons = [InlineKeyboardButton(text=f"{idx+1}-kanal", url=f"https://t.me/{channel}") for idx, channel in enumerate(not_subscribed)]
+    """
+    Bu funksiya, obuna bo'lmagan kanallarni Inline tugmalari bilan qaytaradi.
+    """
+    buttons = [
+        InlineKeyboardButton(text=f"{idx+1}-kanal", url=f"https://t.me/{channel}")
+        for idx, channel in enumerate(not_subscribed)
+    ]
+    
     buttons.append(InlineKeyboardButton(text="✅ Tasdiqlash", callback_data="check_subscriptions"))
+    
     keyboard = InlineKeyboardMarkup(row_width=1)
     keyboard.add(*buttons)
+    
     return keyboard
 
 

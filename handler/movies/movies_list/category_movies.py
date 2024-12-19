@@ -20,15 +20,14 @@ async def show_movies_by_category_task(callback_query: types.CallbackQuery, stat
     """
 
     category_title = callback_query.data.split('_')[1]
-    print(category_title)
     movies = get_movies_by_category(category_title)
 
     if movies:
         response = ''
         for index, movie in enumerate(movies, start=1):
-            title = category_title
-            year = movie.year
-            code = movie.code
+            title = movie.get("title", category_title) 
+            year = movie.get("year") 
+            code = movie.get("code")
             response += texts.get_response(
                 index=index,
                 title=title,

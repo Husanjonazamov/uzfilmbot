@@ -73,7 +73,7 @@ async def download_movie_task(callback_query: types.CallbackQuery, state: FSMCon
                 episode_genre = episode['genre']
                 episode_file_id = episode['file_id']
                 episode_number = episode['episode_number']
-                episode_download_count = await update_download_count_view(code)
+                episode_download_count = updateDownloadCount(code)
 
                 if download_count is None:
                     await callback_query.message.reply("Movie not found in the database.")

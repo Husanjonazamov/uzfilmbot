@@ -13,6 +13,7 @@ import logging
 from asyncio import create_task
 
 
+
 async def search_movies_task(message: Message, state: FSMContext):
 
     """
@@ -26,15 +27,17 @@ async def search_movies_task(message: Message, state: FSMContext):
         response = "Natijalar:\n"
         keyboard = InlineKeyboardMarkup(row_width=1)
         for index, movie in enumerate(movies, start=1):
-            button_text = f"🎬 {movie.title}"
-            button_callback_data = f"{movie.code}" 
+            button_text = f"🎬 {movie['title']}"
+            button_callback_data = f"{movie['code']}" 
             keyboard.add(InlineKeyboardButton(text=button_text, callback_data=button_callback_data))
-            response += f"{index}. {movie.title} - Kodi: {movie.code}\n\n"
+            response += f"{index}. {movie['title']} - Kodi: {movie['code']}\n\n"
 
         await message.answer(response, reply_markup=keyboard)
     else:
         await message.answer(texts.SEARCH_NOT_FOUND)
         await state.set_state(MoviesSearch.waiting_for_query)
+
+
 
 
 
